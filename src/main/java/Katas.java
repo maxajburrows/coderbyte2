@@ -1,31 +1,37 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class Katas {
 
-    public static String ArrayAddition(int[] arr) {
+    public static Boolean ArrayAddition(int[] arr) {
         Arrays.sort(arr);
         Integer largestNum = arr[arr.length-1];
-        int[] otherNums = Arrays.copyOfRange(arr, 0, arr.length-1);
-        for (int i = 0; i < otherNums.length; i++) {
-            int sum = otherNums[i];
-            for (int j = i+1; j < otherNums.length; j++) {
-                sum += otherNums[j];
-                if (sum == largestNum) {
-                    return "false";
-                }
+        ArrayList<Integer> otherNumsList = Arrays
+                .stream(Arrays.copyOfRange(arr, 0, arr.length-1))
+                .mapToObj(Integer::valueOf)
+                .collect(Collectors.toCollection(ArrayList<Integer>::new));
+        Integer sum = 0;
+        return recursionHelper(otherNumsList, largestNum, sum);
+    }
+
+    private static Boolean recursionHelper(ArrayList<Integer> otherNumsList, Integer largestNum, Integer sum) {
+        if (otherNumsList.size() == 0) {
+            return false;
+        }
+        for (int i = 0; i < otherNumsList.size(); i++) {
+            ArrayList<Integer> otherNumsListLoop = otherNumsList.stream()
+                            .collect(Collectors.toCollection(ArrayList<Integer>::new));
+            Integer loopSum = sum + otherNumsListLoop.remove(i);
+            if (loopSum == largestNum) {
+                return true;
+            }
+            if (recursionHelper(otherNumsListLoop, largestNum, loopSum)) {
+                return true;
             }
         }
-        for (int i = 0; i < otherNums.length; i++) {
-            for (int j = i+1; j < otherNums.length; j++) {
-                int sum = otherNums[0] + otherNums[j];
-                if (sum == largestNum) {
-                    return "true";
-                }
-            }
-        }
-        return "false";
+        return false;
     }
 
     public static String ClosestEnemyII(String[] strArr) {
@@ -111,5 +117,4 @@ public class Katas {
                 .count();
         return String.valueOf(Math.round(sum/numLetter));
     }
-
 }

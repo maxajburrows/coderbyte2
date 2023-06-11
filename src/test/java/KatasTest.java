@@ -8,15 +8,49 @@ class KatasTest {
 
     @Test
     public void kata1() {
-        String output = outputter.ArrayAddition(new int[] {5,7,16,1,2});
+        Boolean output = outputter.ArrayAddition(new int[] {5,7,16,1,2});
+        assertEquals(false, output);
+    }
 
-        assertEquals("false", output);
+    @Test
+    public void kata1SecondTest() {
+        Boolean output = outputter.ArrayAddition(new int[] {10,20,30,40,100});
+        assertEquals(true, output);
+    }
+
+    @Test
+    public void kata1ThirdTest() {
+        Boolean output = outputter.ArrayAddition(new int[] {54,49,1,0,7,4});
+        assertEquals(true, output);
+    }
+
+    @Test
+    public void kata1FourthTest() {
+        Boolean output = outputter.ArrayAddition(new int[] {3,4,5,7});
+        assertEquals(true, output);
+    }
+
+    @Test
+    public void kata1FifthTest() {
+        Boolean output = outputter.ArrayAddition(new int[] {31,2,90,50,7});
+        assertEquals(true, output);
+    }
+
+    @Test
+    public void kata1SixthTest() {
+        Boolean output = outputter.ArrayAddition(new int[] {31,2,95,50,7});
+        assertEquals(false, output);
+    }
+
+    @Test
+    public void kata1SeventhTest() {
+        Boolean output = outputter.ArrayAddition(new int[] {31,16,92,50,7,9,12,8});
+        assertEquals(false, output);
     }
 
     @Test
     public void kata2() {
         String output = outputter.ClosestEnemyII(new String[] {"000", "100", "200"});
-
         assertEquals("1", output);
     }
 
